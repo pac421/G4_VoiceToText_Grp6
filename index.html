@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Exotismes</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+        <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/jumbotron/">       
+    </head>
+
+    <body id="page-top">
+        <div id="content">
+            <div class="clearfix">
+                <div class="classicTxt-wrapper container"> 
+                    <h2>Elaboration PNR par reconnaissance vocale</h2>     
+                    <p>Appuyez sur le micro, puis parlez.</p>
+                    <section class="w-100 p-4 text-center d-flex justify-content-center">
+                        <div id="start_button" title="Démarrer / Pause" onclick="if(variables.recognizing){isToRestartImmediately=false}startButton(event);" style="display: inline-block;margin-right: 27px;margin-top: 45px;">
+                            
+                            <p><button type="button" onclick="runSpeechRecognition()"><i class="fa fa-microphone fa-2x"></i></button> &lt; <span id="action"></span></p>
+                            
+                        </div>
+                        <form style="width: 26rem;">
+                            
+                            <div class="form-outline mb-4">      
+                                <div id="output">
+                                    <input cols="50" id="speech" style="margin-top: 0px; margin-bottom: 0px; height: 144px;"></input> 
+                                </div> 
+                            </div>                    
+                            <div class="float-end mt-2 pt-1">                                
+                                <button onclick="myFunction()" type="button" class="btn btn-outline-secondary btn-sm">
+                                Valider
+                                </button>
+                            </div>
+                        </form>      
+                    </section>
+                    <h2>Statistiques d’utilisations</h2> 
+                </div>              
+            </div>
+        </div>
+    </body>
+    <!--<script>
+        var mic = document.getElementById('speechinput');
+        mic.onfocus = mic.blur;
+        mic.onwebkitspeechchange = function(e) {
+        document.getElementById('mytextarea').value = speechinput .value;  
+        };
+    </script> 
+    <script src="speech-input.js"></script>
+    
+        <script async defer src="https://buttons.github.io/buttons.js"></script>-->
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            function myFunction() {
+                alert("Les mots clés * ont été détectés");
+            }
+        </script>
+        
+        <script>
+            /* JS comes here */
+            function runSpeechRecognition() {
+                // get output div reference
+                var output = document.getElementById("output");
+                // get action element reference
+                var action = document.getElementById("action");
+                // new speech recognition object
+                var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+                var recognition = new SpeechRecognition();
+            
+                // This runs when the speech recognition service starts
+                recognition.onstart = function() {
+                    action.innerHTML = "<small>Enregistrement en cours...</small>";
+                };
+                
+                recognition.onspeechend = function() {
+                    action.innerHTML = "<small>Enregistrement terminé</small>";
+                    recognition.stop();
+                }
+              
+                // This runs when the speech recognition service returns result
+                recognition.onresult = function(event) {
+                    var transcript = event.results[0][0].transcript;
+                    var confidence = event.results[0][0].confidence;
+                    output.innerHTML = "<b>Text:</b> " + transcript + "<br/> <b>Confidence:</b> " + confidence*100+"%";
+                    output.classList.remove("hide");
+                };
+              
+                 // start recognition
+                 recognition.start();
+            }
+        </script>
+        
+</html>
