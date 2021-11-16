@@ -9569,4 +9569,5 @@ button {
 button:hover {
   background : #0082ae;
   color: #fff;
+  text-decoration: underline;
 }
