@@ -9520,8 +9520,7 @@ body {
 }
 
 .container {
-  padding-top: 4rem;
-  padding-bottom: 5rem;
+  padding-top: 3rem;
   background-color: #fff;
   color: #0082AE;
   padding: 0 50 px 0;
@@ -9569,5 +9568,30 @@ button {
 button:hover {
   background : #0082ae;
   color: #fff;
-  text-decoration: underline;
+}
+
+.colorone {
+
+  background-color: #0082AE;
+}
+
+.colortwo {
+  background-color: #002A3F;
+}
+
+.contenu  {
+  bottom: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.texte {
+
+  font-size: 20px;
+
+}
+
+.legende {
+  background-color: #DAEDF3;
 }
