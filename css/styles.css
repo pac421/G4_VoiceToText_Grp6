@@ -358,7 +358,7 @@ button:not(:disabled),
 }
 
 textarea {
-  resize: vertical;
+  resize: none;
 }
 
 fieldset {
@@ -9523,7 +9523,6 @@ body {
   padding-top: 3rem;
   background-color: #fff;
   color: #0082AE;
-  padding: 0 50 px 0;
 }
 
 input {
@@ -9564,6 +9563,22 @@ button {
   padding-top: 5px;
   border: none;
   background-color: #fff;
+  margin-top: 60px;
+  margin-left: 155px;
+}
+.buttonlegend {
+  border-radius: 0;
+  color: #002A3F;
+  top: 10px;
+  padding-left: 8px;
+  padding-right: 7px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  border: none;
+  background-color: #fff;
+  margin: 5px 0px;
+  width: 100%;
+  text-align: left;
 }
 button:hover {
   background : #0082ae;
@@ -9594,4 +9609,7 @@ button:hover {
 
 .legende {
   background-color: #DAEDF3;
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-right: 15px;
 }
