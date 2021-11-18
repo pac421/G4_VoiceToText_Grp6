@@ -24,7 +24,7 @@ CREATE TABLE CONVERSATION_KEYWORD
 INSERT INTO KEYWORD (id, label, action)
  VALUES
  ('e7827472-0553-4b26-b4d7-74c9b55cc8e6', 'demi-pension', 'Mettre le client en demi-pension.'),
- ('b29b3e79-8a28-4c8d-8675-da2c98f38bf0', 'petit-déjeuner', 'Mettre le client avec un supplément petit-déjeuner.'),
+ ('b29b3e79-8a28-4c8d-8675-da2c98f38bf0', 'petit-déjeuner', 'Ajouter un supplément petit-déjeuner au client.'),
  ('22be33e2-6ba5-41bf-b7c1-55a62e023629', 'hébergement seul', 'Mettre le client en hébergement seul.'),
  ('5fbcfb61-7220-468e-8a43-952c4f08ac61', 'pension complète', 'Mettre le client en pension complète.'),
  ('384b0840-ce58-4ae0-8b85-edd3004f53d3', 'tout inclus', 'Mettre le client en formule Tout inclus.'),
