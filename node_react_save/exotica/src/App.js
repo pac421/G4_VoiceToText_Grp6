@@ -2,8 +2,15 @@ import React, {Component} from 'react';
 import io from 'socket.io-client';
 import { v4 as uuidv4 } from 'uuid';
 import { injectStyle } from "react-toastify/dist/inject-style";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import $ from 'jquery';
+
+// View
+
+import Index from './components';
+import './css/analyses.css';                                                                   
+import './css/styles.css';                                                                    
+import 'bootstrap/dist/css/bootstrap.min.css';    
 
 if (typeof window !== "undefined") {
   injectStyle();
@@ -12,19 +19,6 @@ if (typeof window !== "undefined") {
 const DOWNSAMPLING_WORKER = './downsampling_worker.js';
 
 class App extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			connected: false,
-			recording: false,
-			recordingStart: 0,
-			recordingTime: 0,
-			recognitionOutput: [],
-			keywords: [],
-			convObject: {}
-		};
-	}
-	
 	componentDidMount() {
 		let recognitionCount = 0;
 		
@@ -133,31 +127,28 @@ class App extends Component {
 	}
 	
 	render() {
-		return (
-			<div className="App">
-				<div>
-					<button disabled={!this.state.connected || this.state.recording} onClick={this.startRecording}>
-						Start Recording
-					</button>
+		// return (
+		// 	<div className="App">
+		// 		<div>
+		// 			<button disabled={!this.state.connected || this.state.recording} onClick={this.startRecording}>
+		// 				Start Recording
+		// 			</button>
 					
-					<button disabled={!this.state.recording} onClick={this.stopRecording}>
-						Stop Recording
-					</button>
+		// 			<button disabled={!this.state.recording} onClick={this.stopRecording}>
+		// 				Stop Recording
+		// 			</button>
 					
-					{this.renderTime()}
-				</div>
-				{this.renderRecognitionOutput()}
-				<ToastContainer />
-			</div>
+		// 			{this.renderTime()}
+		// 		</div>
+		// 		{this.renderRecognitionOutput()}
+		// 		<ToastContainer />
+		// 	</div>
 			
-		);
+		// );
+
+		return (<Index />);
 	}
 	
-	renderTime() {
-		return (<span>
-			{(Math.round(this.state.recordingTime / 100) / 10).toFixed(1)}s
-		</span>);
-	}
 	
 	renderRecognitionOutput() {
 		return (<ul>
