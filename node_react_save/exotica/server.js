@@ -5,6 +5,9 @@ const DeepSpeech = require('deepspeech');
 const VAD = require('node-vad');
 const mysql = require('mysql');
 
+/*
+ * MySQL
+ */
 const con = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
@@ -17,21 +20,17 @@ con.connect((err) => {
 	console.log('Connected!');
 });
 
-//let DEEPSPEECH_MODEL = __dirname + '/models/en/deepspeech-0.9.3-models'; // path to deepspeech english model directory
-let DEEPSPEECH_MODEL = __dirname + '/models/fr/frenchmodel';
-
+/*
+ * DeepSpeech
+ */
+let DEEPSPEECH_MODEL = __dirname + '/models/custom/custom_model';
 let SILENCE_THRESHOLD = 200; // how many milliseconds of inactivity before processing the audio
 
 const SERVER_PORT = 4000; // websocket server port
-
-// const VAD_MODE = VAD.Mode.NORMAL;
-// const VAD_MODE = VAD.Mode.LOW_BITRATE;
-// const VAD_MODE = VAD.Mode.AGGRESSIVE;
 const VAD_MODE = VAD.Mode.VERY_AGGRESSIVE;
 const vad = new VAD(VAD_MODE);
 
 function createModel(modelDir) {
-	//let modelPath = modelDir + '.pbmm';
 	let modelPath = modelDir + '.tflite';
 	let scorerPath = modelDir + '.scorer';
 	let model = new DeepSpeech.Model(modelPath);
@@ -40,7 +39,6 @@ function createModel(modelDir) {
 }
 
 let englishModel = createModel(DEEPSPEECH_MODEL);
-
 let modelStream;
 let recordedChunks = 0;
 let silenceStart = null;
@@ -65,7 +63,6 @@ function processAudioStream(data, callback) {
 				break;
 			default:
 				console.log('default', res);
-				
 		}
 	});
 	
@@ -74,7 +71,7 @@ function processAudioStream(data, callback) {
 	endTimeout = setTimeout(function() {
 		console.log('timeout');
 		resetAudioStream();
-	},1000);
+	}, 1000);
 }
 
 function endAudioStream(callback) {
@@ -199,20 +196,35 @@ function feedAudioContent(chunk) {
 	modelStream.feedAudioContent(chunk);
 }
 
-const options = {
-	key: fs.readFileSync('certs/server.key'),
-	cert: fs.readFileSync('certs/server.cert'),
+/*
+ * HTTPS
+ */
+const app = https.createServer({
 	
-};
-
-const app = https.createServer(options, (req, res) => {
+	key: fs.readFileSync('certs/server.key', 'utf8'),
+	cert: fs.readFileSync('certs/server.cert', 'utf8'),
+	requestCert: false,
+    rejectUnauthorized: false
+    
+}, (req, res) => {
+	
 	res.writeHead(200);
 	res.write('web-microphone-websocket');
 	res.end();
+	
+}).listen(SERVER_PORT, '0.0.0.0', () => {
+	
+	console.log('Socket server listening on:', SERVER_PORT);
+	
 });
 
+module.exports = app;
+
+/*
+ * SocketIO
+ */
 const io = socketIO(app, {});
-io.set('origins', '*:*');
+io.origins('*:*');
 
 io.on('connection', function(socket) {
 	console.log('client connected');
@@ -220,8 +232,6 @@ io.on('connection', function(socket) {
 	socket.once('disconnect', () => {
 		console.log('client disconnected');
 	});
-	
-	createStream();
 	
 	socket.on('stream-data', function(data) {
 		processAudioStream(data, (results) => {
@@ -246,6 +256,13 @@ io.on('connection', function(socket) {
 		});
 	});
 	
+	socket.on('new_conv_keyword', function(conv) {
+		con.query('INSERT INTO CONVERSATION_KEYWORD SET ?', conv, (err, res) => {
+			if(err) throw err;
+			console.log('New conv_keyword inserted:', res.insertId);
+		});
+	});
+	
 	socket.on('set_conv_end', function(data) {
 		con.query('UPDATE CONVERSATION SET ended_at = ? Where ID = ?', [data.ended_at, data.id], (err, result) => {
 			if(err) throw err;
@@ -253,14 +270,10 @@ io.on('connection', function(socket) {
 		});
 	});
 	
+	createStream();
+	
 	con.query('SELECT * FROM KEYWORD', (err, rows) => {
 		if(err) throw err;
 		socket.emit('keywords', rows);
 	});
 });
-
-app.listen(SERVER_PORT, '0.0.0.0', () => {
-	console.log('Socket server listening on:', SERVER_PORT);
-});
-
-module.exports = app;
