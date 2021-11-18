@@ -29,7 +29,7 @@ class App extends Component {
 	componentDidMount() {
 		let recognitionCount = 0;
 		
-		this.socket = io.connect('https://192.168.3.212:4000', {secure: true});
+		this.socket = io.connect('https://192.168.3.212:4000', {secure: true, reconnect: true, rejectUnauthorized : false});
 		
 		this.socket.on('connect', () => {
 			console.log('socket connected');
