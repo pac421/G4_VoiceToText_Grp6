@@ -1,5 +1,8 @@
 import React from "react";
 import Core from './core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMicrophone, faUserTie, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { faChartBar, faCalendarAlt } from '@fortawesome/free-regular-svg-icons';
 
 import minutes from '../assets/img/minutes.png';
 
@@ -30,7 +33,7 @@ class index extends React.Component {
                     marginTop: "125px"
                   }}
                 >
-                  <i className=" fa fa-microphone fa-3x" />
+                  <FontAwesomeIcon icon={faMicrophone} size="3x" />
                 </button>
                 <p
                   style={{
@@ -168,13 +171,7 @@ class index extends React.Component {
                   marginRight: "10px"
                 }}
               >
-                <i
-                  className="far fa-chart-bar fa-4x"
-                  style={{
-                    color: "#f49b00",
-                    marginTop: "31px"
-                  }}
-                />
+                <FontAwesomeIcon className="orange" icon={faChartBar} size="4x" />
                 <p
                   className="paragraphe-dest"
                   style={{
@@ -191,14 +188,9 @@ class index extends React.Component {
                   mots clés détectés par heure
                 </p>
               </div>
-              <div className="colonne border rounded-3">
-                <i
-                  className="far fa-calendar-alt fa-4x"
-                  style={{
-                    color: "#f49b00",
-                    marginTop: "31px"
-                  }}
-                />
+              <div className="colonne h-100 border rounded-3">
+                <FontAwesomeIcon className="orange" icon={faCalendarAlt} size="4x" className="orange"/>
+
                 <p
                   className="paragraphe-dest"
                   style={{
@@ -224,12 +216,7 @@ class index extends React.Component {
                     marginBottom: "10px"
                   }}
                 >
-                  <i
-                    className="fas fa-user-tie fa-4x"
-                    style={{
-                      color: "#f49b00"
-                    }}
-                  />
+                  <FontAwesomeIcon icon={faUserTie} size="4x" className="orange" />
                   <p
                     className="paragraphe-dest"
                     style={{
@@ -252,12 +239,7 @@ class index extends React.Component {
                     marginBottom: "10px"
                   }}
                 >
-                  <i
-                    className="fas fa-paper-plane fa-4x"
-                    style={{
-                      color: "#f49b00"
-                    }}
-                  />
+                  <FontAwesomeIcon icon={faPaperPlane} size="4x" className="orange" />
                   <p
                     className="paragraphe-dest"
                     style={{
@@ -308,7 +290,7 @@ class index extends React.Component {
                     }}
                   >
                     <div
-                      className="progress-bar"
+                      className="progress-bar bg-success"
                       role="progressbar"
                       style={{
                         width: "90%"
@@ -352,7 +334,7 @@ class index extends React.Component {
                   }}
                 >
                   <div
-                    className="progress-bar"
+                    className="progress-bar bg-success"
                     role="progressbar"
                     style={{
                       width: "50%"
@@ -397,7 +379,7 @@ class index extends React.Component {
                   }}
                 >
                   <div
-                    className="progress-bar"
+                    className="progress-bar bg-success"
                     role="progressbar"
                     style={{
                       width: "90%"
