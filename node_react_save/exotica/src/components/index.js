@@ -1,6 +1,11 @@
 import React from "react";
 import Core from './core';
+
+import minutes from '../assets/img/minutes.png';
+
 import 'bootstrap/dist/css/bootstrap.css';
+require('../assets/styles.css');
+
 class index extends React.Component {
   render() {
     return (
@@ -139,7 +144,7 @@ class index extends React.Component {
                 }}
               >
                 <img
-                  src="assets/img/minutes.png"
+                  src={minutes}
                   style={{
                     width: "27%"
                   }}

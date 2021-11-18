@@ -4,10 +4,7 @@ import { injectStyle } from "react-toastify/dist/inject-style";
 
 // View
 
-import Index from './components';
-import './css/analyses.css';                                                                   
-import './css/styles.css';                                                                    
-import 'bootstrap/dist/css/bootstrap.min.css';    
+import Index from './components';                                                              
 
 if (typeof window !== "undefined") {
   injectStyle();
