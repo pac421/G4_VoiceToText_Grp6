@@ -18,7 +18,8 @@ con.connect((err) => {
 });
 
 //let DEEPSPEECH_MODEL = __dirname + '/models/en/deepspeech-0.9.3-models'; // path to deepspeech english model directory
-let DEEPSPEECH_MODEL = __dirname + '/models/fr/frenchmodel';
+//let DEEPSPEECH_MODEL = __dirname + '/models/fr/frenchmodel';
+let DEEPSPEECH_MODEL = __dirname + '/models/custom/custom_model';
 
 let SILENCE_THRESHOLD = 200; // how many milliseconds of inactivity before processing the audio
 
@@ -212,7 +213,7 @@ const app = https.createServer(options, (req, res) => {
 });
 
 const io = socketIO(app, {});
-io.set('origins', '*:*');
+io.origins('*:*');
 
 io.on('connection', function(socket) {
 	console.log('client connected');
@@ -243,6 +244,13 @@ io.on('connection', function(socket) {
 		con.query('INSERT INTO CONVERSATION SET ?', conv, (err, res) => {
 			if(err) throw err;
 			console.log('New conv inserted:', res.insertId);
+		});
+	});
+	
+	socket.on('new_conv_keyword', function(conv) {
+		con.query('INSERT INTO CONVERSATION_KEYWORD SET ?', conv, (err, res) => {
+			if(err) throw err;
+			console.log('New conv_keyword inserted:', res.insertId);
 		});
 	});
 	

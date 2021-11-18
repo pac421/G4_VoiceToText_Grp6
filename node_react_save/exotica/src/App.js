@@ -21,7 +21,8 @@ class App extends Component {
 			recordingTime: 0,
 			recognitionOutput: [],
 			keywords: [],
-			convObject: {}
+			convObject: {},
+			convkeyObject: {}
 		};
 	}
 	
@@ -90,6 +91,19 @@ class App extends Component {
 			draggable: true,
 			progress: undefined
 		});
+		
+		this.setState({
+			convkeyObject: { 
+				id_conversation: this.state.convObject.id,
+				id_keyword: keyword.id, 
+				created_at: new Date().toISOString().slice(0, 19).replace('T', ' ')
+			}
+		});
+		
+		console.log('new conv_keyword object:', this.state.convkeyObject);
+		
+		if (this.socket.connected)
+			this.socket.emit('new_conv_keyword', this.state.convkeyObject);
 	}
 	
 	levenshteinDistance = (str1 = '', str2 = '') => {
