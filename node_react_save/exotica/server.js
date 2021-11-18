@@ -199,26 +199,42 @@ function feedAudioContent(chunk) {
 /*
  * HTTPS
  */
-const app = https.createServer({
-	
+const options = {
 	key: fs.readFileSync('certs/server.key', 'utf8'),
 	cert: fs.readFileSync('certs/server.cert', 'utf8'),
 	requestCert: false,
     rejectUnauthorized: false
-    
-}, (req, res) => {
-	
+}
+
+const app = https.createServer(options, (req, res) => {
 	res.writeHead(200);
 	res.write('web-microphone-websocket');
 	res.end();
-	
-}).listen(SERVER_PORT, '0.0.0.0', () => {
-	
-	console.log('Socket server listening on:', SERVER_PORT);
-	
 });
 
-module.exports = app;
+/*
+ * Query
+ */
+const add_conversation = (obj) => {
+	con.query('INSERT INTO CONVERSATION SET ?', obj, (err, res) => {
+		if(err) throw err;
+		console.log('new conversation inserted:', res.insertId);
+	});
+}
+
+const add_conversation_keyword = (obj) => {
+	con.query('INSERT INTO CONVERSATION_KEYWORD SET ?', obj, (err, res) => {
+		if(err) throw err;
+		console.log('new conversation_keyword inserted:', res.insertId);
+	});
+}
+
+const set_conversation_end = (obj) => {
+	con.query('UPDATE CONVERSATION SET ended_at = ? WHERE ID = ?', [obj.ended_at, obj.id], (err, result) => {
+		if(err) throw err;
+		console.log('setting conversation end');
+	});
+}
 
 /*
  * SocketIO
@@ -249,31 +265,32 @@ io.on('connection', function(socket) {
 		resetAudioStream();
 	});
 	
-	socket.on('new_conv', function(conv) {
-		con.query('INSERT INTO CONVERSATION SET ?', conv, (err, res) => {
-			if(err) throw err;
-			console.log('New conv inserted:', res.insertId);
-		});
-	});
 	
-	socket.on('new_conv_keyword', function(conv) {
-		con.query('INSERT INTO CONVERSATION_KEYWORD SET ?', conv, (err, res) => {
-			if(err) throw err;
-			console.log('New conv_keyword inserted:', res.insertId);
-		});
-	});
-	
-	socket.on('set_conv_end', function(data) {
-		con.query('UPDATE CONVERSATION SET ended_at = ? Where ID = ?', [data.ended_at, data.id], (err, result) => {
-			if(err) throw err;
-			console.log(`Changed ${result.changedRows} row(s)`);
-		});
-	});
 	
 	createStream();
 	
-	con.query('SELECT * FROM KEYWORD', (err, rows) => {
+	con.query('SELECT * FROM KEYWORD', (err, lst_keywords) => {
 		if(err) throw err;
-		socket.emit('keywords', rows);
+		socket.emit('get_keywords', lst_keywords);
+	});
+	
+	
+	
+	socket.on('add_conversation', function(obj) {
+		add_conversation(obj);
+	});
+	
+	socket.on('add_conversation_keyword', function(obj) {
+		add_conversation_keyword(obj);
+	});
+	
+	socket.on('set_conversation_end', function(obj) {
+		set_conversation_end(obj);
 	});
 });
+
+app.listen(SERVER_PORT, '0.0.0.0', () => {
+	console.log('Socket server listening on:', SERVER_PORT);
+});
+
+module.exports = app;

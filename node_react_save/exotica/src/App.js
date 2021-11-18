@@ -52,9 +52,9 @@ class App extends Component {
 			this.try_recognition(results.text);
 		});
 		
-		this.socket.on('keywords', (arr) => {
-			console.log('keywords:', arr);
-			this.setState({keywords: arr});
+		this.socket.on('get_keywords', (lst_keywords) => {
+			console.log('get_keywords:', lst_keywords);
+			this.setState({keywords: lst_keywords});
 		});
 	}
 	
@@ -103,7 +103,7 @@ class App extends Component {
 		console.log('new conv_keyword object:', this.state.convkeyObject);
 		
 		if (this.socket.connected)
-			this.socket.emit('new_conv_keyword', this.state.convkeyObject);
+			this.socket.emit('add_conversation_keyword', this.state.convkeyObject);
 	}
 	
 	levenshteinDistance = (str1 = '', str2 = '') => {
@@ -247,7 +247,7 @@ class App extends Component {
 			console.log('new conversation object:', this.state.convObject);
 			
 			if (this.socket.connected)
-				this.socket.emit('new_conv', this.state.convObject);
+				this.socket.emit('add_conversation', this.state.convObject);
 		};
 		
 		const fail = (e) => {
@@ -274,7 +274,7 @@ class App extends Component {
 		if (this.state.recording) {
 			if (this.socket.connected) {
 				this.socket.emit('stream-reset');
-				this.socket.emit('set_conv_end', {
+				this.socket.emit('set_conversation_end', {
 					id: this.state.convObject.id,
 					ended_at: new Date().toISOString().slice(0, 19).replace('T', ' ')
 				});
