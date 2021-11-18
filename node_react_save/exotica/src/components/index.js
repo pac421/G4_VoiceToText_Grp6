@@ -12,7 +12,10 @@ class index extends React.Component {
             <div className="row g-4 py-5 row-cols-1 row-cols-lg-3">
               <div className="col-md-4">
                 <Core />
-                <button type="button" onclick="runSpeechRecognition()">
+                <button 
+					type="button" 
+					//~ onClick="runSpeechRecognition()"
+				>
                   <i className="fa fa-microphone fa-4x" />
                 </button>
                 <span
@@ -48,7 +51,7 @@ class index extends React.Component {
                     </div>
                     <div className="float-end mt-2 pt-1">
                       <button
-                        onclick="myFunction()"
+                        //~ onclick="myFunction()"
                         type="button"
                         className="btn btn-outline-secondary btn-sm"
                       >
