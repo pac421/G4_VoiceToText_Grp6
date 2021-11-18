@@ -4,7 +4,7 @@ import Core from './core';
 class index extends React.Component {
   render() {
     return (
-      <div id="content">
+      <div id="content" className="">
         <div className="clearfix">
           <div className="classicTxt-wrapper container">
             <h2>Elaboration PNR par reconnaissance vocale</h2>
@@ -154,7 +154,7 @@ class index extends React.Component {
                       <p className="texte"> de réussite de détection</p>
                       <div className="progress mb-2">
                         <div
-                          className="progress-bar"
+                          className="progress-bar bg-success"
                           role="progressbar"
                           style={{
                             width: "77%"
@@ -187,7 +187,7 @@ class index extends React.Component {
                       <p className="texte"> de CPU utilisé par la Raspberry </p>
                       <div className="progress mb-2">
                         <div
-                          className="progress-bar"
+                          className="progress-bar bg-success"
                           role="progressbar"
                           style={{
                             width: "50%"
@@ -203,7 +203,7 @@ class index extends React.Component {
                       <p className="texte"> de RAM utilisé par la Raspberry</p>
                       <div className="progress mb-2">
                         <div
-                          className="progress-bar"
+                          className="progress-bar bg-success"
                           role="progressbar"
                           style={{
                             width: "75%"
