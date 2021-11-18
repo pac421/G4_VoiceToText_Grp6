@@ -10,170 +10,141 @@
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />      
     </head>
-    <style>
-        #div1, #div2 {
-          float: left;
-          width: 100px;
-          height: 35px;
-          margin: 10px;
-          padding: 10px;
-          border: 1px solid black;
-        }
-        </style>
-    <body id="page-top" data-component="index">
+
+    <body id="page-top">
         <div id="content">
             <div class="clearfix">
+                <div class="classicTxt-wrapper container" style="background-color: #0082AE; padding-top: 20px;"></div>
                 <div class="classicTxt-wrapper container"> 
                     <h2>Elaboration PNR par reconnaissance vocale</h2>     
-                    <p>Appuyez sur le micro, puis parlez.</p>
-                    <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-                            <div class="col-md-4">
-                                
-                                    <button type="button" onclick="runSpeechRecognition()">
-                                        <i class="fa fa-microphone fa-4x"></i>
-                                    </button>
-                                    <span id="action" style="margin-left: 110px;"></span> 
-                                    
-                                
-                            </div>                   
-                             
+                    
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <button type="button" style=" margin-left: 288px; margin-top: 125px;"">
+                                <i class="fa fa-microphone fa-3x"></i>                                                              
+                            </button>
+                            <p style="text-align: center;">Appuyer sur le micro, puis parler.</p> 
+                            <span id="action"></span>                                
+                        </div>
 							<div class="col-md-4" style="margin-top: 55px;">
 								<section class="align-self-center">
 									<form style="width: 26rem;">
 										
 										<div class="form-outline mb-4">  
-											<textarea cols="50" id="output" style="margin-top: 0px; margin-bottom: 0px; height: 144px;"></textarea> 
-										</div>                    
-										<div class="float-end mt-2 pt-1">                                
-											<button onclick="myFunction()" type="button" class="btn btn-outline-secondary btn-sm">
-											Valider
-											</button>
+											<textarea cols="50" id="output" style="margin-top: 0px; margin-bottom: 0px; height: 300px; width: 360px;"></textarea> 
 										</div>
 									</form>      
 								</section>
 							</div>
-							<div class="col-md-4" style="margin-top: 0px;">
-                                <div class="border rounded-3 legende ">                            
-                                        <h4>Mots clés non reconnus</h4>
-                                        <p>
-                                            <button class="buttonlegend"><b>Demi-pension</b></button><br>
-                                            <button class="buttonlegend"><b>Petit-déjeuner</b></button><br>
-                                            <button class="buttonlegend"><b>Hébergements seuls</b></button><br>
-                                            <button class="buttonlegend"><b>Pension complète</b></button><br>
-                                            <button class="buttonlegend"><b>Tout inclus</b></button><br>
-                                            <button class="buttonlegend"><b>All inclusive</b></button><br>
-                                            <button class="buttonlegend"><b>Conditions d’annulation</b></button><br>
-                                            <button class="buttonlegend"><b>Contre-proposition</b></button><br>
-                                            <button class="buttonlegend"><b>12 juillet 2022</b></button><br>
-                                            <button class="buttonlegend"><b>? Nuit(s)</b></button><br>
-                                            <button class="buttonlegend"><b>Martinique</b></button><br>
-                                            <button class="buttonlegend"><b>Marseille</b></button><br>
-                                            <button class="buttonlegend"><b>? Adulte(s), ? enfant(s) et ? bébé(s)</b></button><br>
-                                        </p>
-                                </div>
-							</div>                                              
-                    </div>                 
-                    <h2>Statistiques d’utilisations</h2> 
-
-                    <div class="d-flex justify-content-center">
-                        <div class="wrapper container bg-light shadow-sm">
-                        <div class="container textbody">
-                            <h2> Nombre de mots-clés : </h2>
-                            <div class="row text-center text-white">
-                            <div class="col-4 colorone arondir mt-3 shadow-sm p-3 mb-4">
-                                    <h2>
-                                        00
-                                    </h2>
-                                    <p class="texte">
-                                       détectés par minute
+							             
+                            
+                            
+                    </div>
+                    <div class="row border rounded-3 legende">
+                        <div class="col-md-6" style="margin-top: 0px;">                           
+                                    <h4>Mots clés non reconnus</h4>
+                                    <p>
+                                        <button class="buttonlegend"><b>Demi-pension</b></button>
+                                        <button class="buttonlegend"><b>Petit-déjeuner</b></button>
+                                        <button class="buttonlegend"><b>Hébergements seuls</b></button>
                                     </p>
-                            </div>
-                            <div class="col-4 colortwo arondir mt-3 shadow-sm p-3 mb-4">
-                                    <h2>
-                                        00
-                                    </h2>
-                                    <p class="texte">
-                                        détectés par heure
+                        </div>
+                        <div class="col-md-6" style="margin-top: 38px;"> 
+                                    <p>
+                                        <button class="buttonlegend"><b>Pension complète</b></button>
+                                        <button class="buttonlegend"><b>Tout inclus</b></button>
+                                        <button class="buttonlegend"><b>All inclusive</b></button>
                                     </p>
+                                        <!--<button class="buttonlegend"><b>Conditions d’annulation</b></button><br>
+                                        <button class="buttonlegend"><b>Contre-proposition</b></button><br>
+                                        <button class="buttonlegend"><b>12 juillet 2022</b></button><br>
+                                        <button class="buttonlegend"><b>? Nuit(s)</b></button><br>
+                                        <button class="buttonlegend"><b>Martinique</b></button><br>
+                                        <button class="buttonlegend"><b>Marseille</b></button><br>
+                                        <button class="buttonlegend"><b>? Adulte(s), ? enfant(s) et ? bébé(s)</b></button><br>-->
+                        </div>                               
+                    </div>
+                    <div style="text-align: center;">
+                        
+                    <button type="button" class="btn btn-outline-secondary btn-sm js-scrollTo" href="#page-1"style="margin-left: 10px; margin-top: 10px;">
+                        <a class="js-scrollTo" href="#page-1"></a>
+                        Accès aux statistiques
+                        </button>
+                    </div>
+                </div>
+                
+                
+                
+                
+                
+                <!--statistiques-->
+                <div class="classicTxt-wrapper container" style="padding-right: 0px; padding-left: 0px;" id="page-1"> 
+                    <div class="destination">                     
+                        <div class="colonne border rounded-3" style="padding-bottom: 4px">
+                            <img src="assets/img/minutes.png" style="width: 27%; "alt="Graphique">
+                            <p class="paragraphe-dest"><span style="font-size: 35px;">300 </span>mots clés détectés par minute</p>                         
+                        </div>
+                         
+                        <div class="colonne border rounded-3" style="margin-left: 10px; margin-right: 10px;">
+                            <i class="far fa-chart-bar fa-4x" style="color: #f49b00; margin-top: 31px;"></i>
+                            <p class="paragraphe-dest" style="margin-top: 22px;"><span style="font-size: 35px;">6 000 </span>mots clés détectés par heure</p>                        
+                        </div>
+                        <div class="colonne border rounded-3">
+                            <i class="far fa-calendar-alt fa-4x" style="color: #f49b00; margin-top: 31px;"></i>
+                            <p class="paragraphe-dest" style="margin-top: 22px;"><span style="font-size: 35px;">40 000 </span>mots clés détectés par jour</p>                        
+                        </div>                              
+                        <div class="row text-white text-center">
+                            <div class="col-2"></div>
+                            <div class="col-6 mt-3 colonne border rounded-3" style="margin-right: 10px; margin-bottom: 10px; ">
+                                <i class="fas fa-user-tie fa-4x" style="color: #f49b00;"></i>
+                                <p class="paragraphe-dest" style="margin-top: 22px;"><span style="font-size: 35px;">12 </span>conversation en cours</p> 
                             </div>
-                            <div class="col-4 colorone arondir mt-3 shadow-sm p-3 mb-4">
-                                <h2>
-                                    00
-                                </h2>
-                                    <p class="texte">
-                                        détectés par jour
-                                    </p>
+                            
+                            <div class="col-6 mt-3 colonne border rounded-3" style="margin-bottom: 10px; ">
+                                <i class="fas fa-paper-plane fa-4x" style="color: #f49b00;"></i>
+                                <p class="paragraphe-dest" style="margin-top: 22px;"><span style="font-size: 35px;">30 </span>actions exécutées</p> 
+                            
                             </div>
-                        </div>
-                        
-                        </div>
-                        
-                        <div class="container textbody case">
-                            <h2> Statistiques </h2>
-
-                            <div class="row text-white text-center">
-                                <div class="col colorone arondir mt-3 shadow-sm p-3 mb-4">
-                                    <h2> 77%</h2>
-                                    <p class="texte"> de réussite de détection</p>
-                                    <div class="progress mb-2">
-                                        <div class="progress-bar" role="progressbar" style="width:77%" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
+                            <div class="colonne border rounded-3" style="padding-bottom: 50px; margin-left: 470px; margin-bottom: 10px;">                                                                   
+                                <p class="paragraphe-dest" style="margin-top: 22px;">Taux de réussite de détection des mots clés</p>
+                                <span style="font-size: 35px; color: black; font-weight: bold;">90%</span>
+                                <div class="progress mb-2" style="margin-right: 50px; margin-left: 50px; border: solid #f49b00;">
+                                    <div class="progress-bar" role="progressbar" style="width:90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>                            
                             </div>
+                        </div>                        
+                        <div class="colonne border rounded-3" style="padding-bottom: 50px;">                                                    
+                            <p class="paragraphe-dest" style="margin-top: 22px;">Taux d'utilisation du CPU de la Raspberry </p>
+                            <span style="font-size: 35px; color: black; font-weight: bold;">50%</span>
+                            <div class="progress mb-2" style="margin-right: 50px; margin-left: 50px; border: solid #f49b00;">
+                                <div class="progress-bar" role="progressbar" style="width:50%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>      
                         </div>
+                        <div class="colonne border rounded-3" style="padding-bottom: 50px; margin-bottom: 20px; margin-left: 10px;"> 
+                            <p class="paragraphe-dest" style="margin-top: 22px;">Taux d'utilisation de la RAM de la Raspberry</p>
+                            <span style="font-size: 35px; color: black; font-weight: bold;">75%</span>
+                            <div class="progress mb-2" style="margin-right: 50px; margin-left: 50px; border: solid #f49b00;">
+                                <div class="progress-bar" role="progressbar" style="width:90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>  
                         
-                        
-                        <div class="container textbody casebisbis">
-                            <div class="row text-white text-center">
-                        <div class="col-6 colorone arondir mt-3 shadow-sm p-3 mb-4 ">
-                            <h2> 00</h2>
-                                <p class="texte"> conversations en cours </p>
-                        </div>
-                        
-                        <div class="col-6 colortwo arondir mt-3 shadow-sm p-3 mb-4">
-                            <h2> 00 </h2>
-                            <p class="texte"> actions exécutées </p>
-                        
-                        </div>
-                            </div>
-                        </div>
-                        
-                        <div class="container textbody case">
-                            <h2> Performances </h2>
-                            <div class="row text-white text-center">
-                                <div class="col-6 colortwo arondir mt-3 shadow-sm p-3 mb-5">
-                                    <h2> 50 %</h2>
-                                    <p class="texte"> de CPU utilisé par la Raspberry </p>
-                                    <div class="progress mb-2">
-                                        <div class="progress-bar" role="progressbar" style="width:50%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                        
-                                <div class="col-6 colorone arondir mt-3 shadow p-3 mb-5">
-                                    <h2> 75 %</h2>
-                                    <p class="texte"> de RAM utilisé par la Raspberry</p>
-
-                                    <div class="progress mb-2">
-                                        <div class="progress-bar" role="progressbar" style="width:75%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                        
-                                </div>
-                            </div>
-                        </div>
-                    </div>                       
+                        </div>    
+                    </div>                
+                    <div class="destination" style="background-color: #0082AE; padding-top: 50px;"></div>                          
                 </div>              
             </div>
         </div>
+        </div>
     </body>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-        <script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>   
+    <script>
             /* JS comes here */
             function runSpeechRecognition() {
                 // get output div reference
@@ -205,21 +176,15 @@
                  // start recognition
                  recognition.start();
             }
-
-            //drag and drop
-                function allowDrop(ev) {
-                    ev.preventDefault();
-                }
-
-                function drag(ev) {
-                    ev.dataTransfer.setData("text", ev.target.id);
-                }
-
-                function drop(ev) {
-                    ev.preventDefault();
-                    var data = ev.dataTransfer.getData("text");
-                    ev.target.appendChild(document.getElementById(data));
-                }
-        </script>
+            //défilement
+            $(document).ready(function() {
+                $('.js-scrollTo').on('click', function() { // Au clic sur un élément
+                    var page = $(this).attr('href'); // Page cible
+                    var speed = 750; // Durée de l'animation (en ms)
+                    $('html, body').animate( { scrollTop: $(page).offset().top }, speed ); // Go
+                    return false;
+                });
+            });
+    </script>
         
 </html>
