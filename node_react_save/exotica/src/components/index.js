@@ -1,29 +1,40 @@
 import React from "react";
 import Core from './core';
-
+import 'bootstrap/dist/css/bootstrap.css';
 class index extends React.Component {
   render() {
     return (
-      <div id="content" className="">
+      <div id="content">
         <div className="clearfix">
+          <div
+            className="classicTxt-wrapper container"
+            style={{
+              backgroundColor: "#0082AE",
+              paddingTop: "20px"
+            }}
+          />
           <div className="classicTxt-wrapper container">
             <h2>Elaboration PNR par reconnaissance vocale</h2>
-            <p>Appuyez sur le micro, puis parlez.</p>
-            <div className="row g-4 py-5 row-cols-1 row-cols-lg-3">
-              <div className="col-md-4">
-                <Core />
-                <button 
-					type="button" 
-					//~ onClick="runSpeechRecognition()"
-				>
-                  <i className="fa fa-microphone fa-4x" />
-                </button>
-                <span
-                  id="action"
+            <div className="row g-4">
+              <div className="col-md-6">
+                <Core/>
+                <button
+                  type="button"
                   style={{
-                    marginLeft: "110px"
+                    marginLeft: "288px",
+                    marginTop: "125px"
                   }}
-                />
+                >
+                  <i className=" fa fa-microphone fa-3x" />
+                </button>
+                <p
+                  style={{
+                    textAlign: "center"
+                  }}
+                >
+                  Appuyer sur le micro, puis parler.
+                </p>
+                <span id="action" />
               </div>
               <div
                 className="col-md-4"
@@ -44,180 +55,362 @@ class index extends React.Component {
                         style={{
                           marginTop: "0px",
                           marginBottom: "0px",
-                          height: "144px"
+                          height: "300px",
+                          width: "360px"
                         }}
                         defaultValue={""}
                       />
                     </div>
-                    <div className="float-end mt-2 pt-1">
-                      <button
-                        //~ onclick="myFunction()"
-                        type="button"
-                        className="btn btn-outline-secondary btn-sm"
-                      >
-                        Valider
-                      </button>
-                    </div>
                   </form>
                 </section>
               </div>
+            </div>
+            <div className="row border rounded-3 legende">
               <div
-                className="col-md-4"
+                className="col-md-6"
                 style={{
                   marginTop: "0px"
                 }}
               >
-                <div className="border rounded-3 legende ">
-                  <h4>Mots clés non reconnus</h4>
-                  <p>
-                    <button className="buttonlegend">
-                      <b>Demi-pension</b>
-                    </button>
-                    <br />
-                    <button className="buttonlegend">
-                      <b>Petit-déjeuner</b>
-                    </button>
-                    <br />
-                    <button className="buttonlegend">
-                      <b>Hébergements seuls</b>
-                    </button>
-                    <br />
-                    <button className="buttonlegend">
-                      <b>Pension complète</b>
-                    </button>
-                    <br />
-                    <button className="buttonlegend">
-                      <b>Tout inclus</b>
-                    </button>
-                    <br />
-                    <button className="buttonlegend">
-                      <b>All inclusive</b>
-                    </button>
-                    <br />
-                    <button className="buttonlegend">
-                      <b>Conditions d’annulation</b>
-                    </button>
-                    <br />
-                    <button className="buttonlegend">
-                      <b>Contre-proposition</b>
-                    </button>
-                    <br />
-                    <button className="buttonlegend">
-                      <b>12 juillet 2022</b>
-                    </button>
-                    <br />
-                    <button className="buttonlegend">
-                      <b>? Nuit(s)</b>
-                    </button>
-                    <br />
-                    <button className="buttonlegend">
-                      <b>Martinique</b>
-                    </button>
-                    <br />
-                    <button className="buttonlegend">
-                      <b>Marseille</b>
-                    </button>
-                    <br />
-                    <button className="buttonlegend">
-                      <b>? Adulte(s), ? enfant(s) et ? bébé(s)</b>
-                    </button>
-                    <br />
+                <h4>Mots clés non reconnus</h4>
+                <p>
+                  <button className="buttonlegend">
+                    <b>Demi-pension</b>
+                  </button>
+                  <button className="buttonlegend">
+                    <b>Petit-déjeuner</b>
+                  </button>
+                  <button className="buttonlegend">
+                    <b>Hébergements seuls</b>
+                  </button>
+                </p>
+              </div>
+              <div
+                className="col-md-6"
+                style={{
+                  marginTop: "38px"
+                }}
+              >
+                <p>
+                  <button className="buttonlegend">
+                    <b>Pension complète</b>
+                  </button>
+                  <button className="buttonlegend">
+                    <b>Tout inclus</b>
+                  </button>
+                  <button className="buttonlegend">
+                    <b>All inclusive</b>
+                  </button>
+                </p>
+              </div>
+            </div>
+            <div
+              style={{
+                textAlign: "center"
+              }}
+            >
+              <button
+                type="button"
+                className="btn btn-outline-secondary btn-sm js-scrollTo"
+                href="#page-1"
+                style={{
+                  marginLeft: "10px",
+                  marginTop: "10px"
+                }}
+              >
+                <a className="js-scrollTo" href="#page-1" />
+                Accès aux statistiques
+              </button>
+            </div>
+          </div>
+          <div
+            className="classicTxt-wrapper container"
+            style={{
+              paddingRight: "0px",
+              paddingLeft: "0px"
+            }}
+            id="page-1"
+          >
+            <div className="destination">
+              <div
+                className="colonne border rounded-3"
+                style={{
+                  paddingBottom: "4px"
+                }}
+              >
+                <img
+                  src="assets/img/minutes.png"
+                  style={{
+                    width: "27%"
+                  }}
+                  alt="Graphique"
+                />
+                <p className="paragraphe-dest">
+                  <span
+                    style={{
+                      fontSize: "35px"
+                    }}
+                  >
+                    300{" "}
+                  </span>
+                  mots clés détectés par minute
+                </p>
+              </div>
+              <div
+                className="colonne border rounded-3"
+                style={{
+                  marginLeft: "10px",
+                  marginRight: "10px"
+                }}
+              >
+                <i
+                  className="far fa-chart-bar fa-4x"
+                  style={{
+                    color: "#f49b00",
+                    marginTop: "31px"
+                  }}
+                />
+                <p
+                  className="paragraphe-dest"
+                  style={{
+                    marginTop: "22px"
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "35px"
+                    }}
+                  >
+                    6 000
+                  </span>
+                  mots clés détectés par heure
+                </p>
+              </div>
+              <div className="colonne border rounded-3">
+                <i
+                  className="far fa-calendar-alt fa-4x"
+                  style={{
+                    color: "#f49b00",
+                    marginTop: "31px"
+                  }}
+                />
+                <p
+                  className="paragraphe-dest"
+                  style={{
+                    marginTop: "22px"
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "35px"
+                    }}
+                  >
+                    40 000
+                  </span>
+                  mots clés détectés par jour
+                </p>
+              </div>
+              <div className="row text-white text-center">
+                <div className="col-2" />
+                <div
+                  className="col-6 mt-3 colonne border rounded-3"
+                  style={{
+                    marginRight: "10px",
+                    marginBottom: "10px"
+                  }}
+                >
+                  <i
+                    className="fas fa-user-tie fa-4x"
+                    style={{
+                      color: "#f49b00"
+                    }}
+                  />
+                  <p
+                    className="paragraphe-dest"
+                    style={{
+                      marginTop: "22px"
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontSize: "35px"
+                      }}
+                    >
+                      12
+                    </span>
+                    conversation en cours
                   </p>
                 </div>
-              </div>
-            </div>
-            <h2>Statistiques d’utilisations</h2>
-            <div className="d-flex justify-content-center">
-              <div className="wrapper container bg-light shadow-sm">
-                <div className="container textbody">
-                  <h2> Nombre de mots-clés : </h2>
-                  <div className="row text-center text-white">
-                    <div className="col-4 colorone arondir mt-3 shadow-sm p-3 mb-4">
-                      <h2>00</h2>
-                      <p className="texte">détectés par minute</p>
-                    </div>
-                    <div className="col-4 colortwo arondir mt-3 shadow-sm p-3 mb-4">
-                      <h2>00</h2>
-                      <p className="texte">détectés par heure</p>
-                    </div>
-                    <div className="col-4 colorone arondir mt-3 shadow-sm p-3 mb-4">
-                      <h2>00</h2>
-                      <p className="texte">détectés par jour</p>
-                    </div>
-                  </div>
+                <div
+                  className="col-6 mt-3 colonne border rounded-3"
+                  style={{
+                    marginBottom: "10px"
+                  }}
+                >
+                  <i
+                    className="fas fa-paper-plane fa-4x"
+                    style={{
+                      color: "#f49b00"
+                    }}
+                  />
+                  <p
+                    className="paragraphe-dest"
+                    style={{
+                      marginTop: "22px"
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontSize: "35px"
+                      }}
+                    >
+                      30
+                    </span>
+                    actions exécutées
+                  </p>
                 </div>
-                <div className="container textbody case">
-                  <h2> Statistiques </h2>
-                  <div className="row text-white text-center">
-                    <div className="col colorone arondir mt-3 shadow-sm p-3 mb-4">
-                      <h2> 77%</h2>
-                      <p className="texte"> de réussite de détection</p>
-                      <div className="progress mb-2">
-                        <div
-                          className="progress-bar bg-success"
-                          role="progressbar"
-                          style={{
-                            width: "77%"
-                          }}
-                          aria-valuenow={77}
-                          aria-valuemin={0}
-                          aria-valuemax={100}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="container textbody casebisbis">
-                  <div className="row text-white text-center">
-                    <div className="col-6 colorone arondir mt-3 shadow-sm p-3 mb-4 ">
-                      <h2> 00</h2>
-                      <p className="texte"> conversations en cours </p>
-                    </div>
-                    <div className="col-6 colortwo arondir mt-3 shadow-sm p-3 mb-4">
-                      <h2> 00 </h2>
-                      <p className="texte"> actions exécutées </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="container textbody case">
-                  <h2> Performances </h2>
-                  <div className="row text-white text-center">
-                    <div className="col-6 colortwo arondir mt-3 shadow-sm p-3 mb-5">
-                      <h2> 50 %</h2>
-                      <p className="texte"> de CPU utilisé par la Raspberry </p>
-                      <div className="progress mb-2">
-                        <div
-                          className="progress-bar bg-success"
-                          role="progressbar"
-                          style={{
-                            width: "50%"
-                          }}
-                          aria-valuenow={90}
-                          aria-valuemin={0}
-                          aria-valuemax={100}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-6 colorone arondir mt-3 shadow p-3 mb-5">
-                      <h2> 75 %</h2>
-                      <p className="texte"> de RAM utilisé par la Raspberry</p>
-                      <div className="progress mb-2">
-                        <div
-                          className="progress-bar bg-success"
-                          role="progressbar"
-                          style={{
-                            width: "75%"
-                          }}
-                          aria-valuenow={90}
-                          aria-valuemin={0}
-                          aria-valuemax={100}
-                        />
-                      </div>
-                    </div>
+                <div
+                  className="colonne border rounded-3"
+                  style={{
+                    paddingBottom: "50px",
+                    marginLeft: "470px",
+                    marginBottom: "10px"
+                  }}
+                >
+                  <p
+                    className="paragraphe-dest"
+                    style={{
+                      marginTop: "22px"
+                    }}
+                  >
+                    Taux de réussite de détection des mots clés
+                  </p>
+                  <span
+                    style={{
+                      fontSize: "35px",
+                      color: "black",
+                      fontWeight: "bold"
+                    }}
+                  >
+                    90%
+                  </span>
+                  <div
+                    className="progress mb-2"
+                    style={{
+                      marginRight: "50px",
+                      marginLeft: "50px",
+                      border: "solid #f49b00"
+                    }}
+                  >
+                    <div
+                      className="progress-bar"
+                      role="progressbar"
+                      style={{
+                        width: "90%"
+                      }}
+                      aria-valuenow={90}
+                      aria-valuemin={0}
+                      aria-valuemax={100}
+                    />
                   </div>
                 </div>
               </div>
+              <div
+                className="colonne border rounded-3"
+                style={{
+                  paddingBottom: "50px"
+                }}
+              >
+                <p
+                  className="paragraphe-dest"
+                  style={{
+                    marginTop: "22px"
+                  }}
+                >
+                  Taux d'utilisation du CPU de la Raspberry{" "}
+                </p>
+                <span
+                  style={{
+                    fontSize: "35px",
+                    color: "black",
+                    fontWeight: "bold"
+                  }}
+                >
+                  50%
+                </span>
+                <div
+                  className="progress mb-2"
+                  style={{
+                    marginRight: "50px",
+                    marginLeft: "50px",
+                    border: "solid #f49b00"
+                  }}
+                >
+                  <div
+                    className="progress-bar"
+                    role="progressbar"
+                    style={{
+                      width: "50%"
+                    }}
+                    aria-valuenow={90}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                  />
+                </div>
+              </div>
+              <div
+                className="colonne border rounded-3"
+                style={{
+                  paddingBottom: "50px",
+                  marginBottom: "20px",
+                  marginLeft: "10px"
+                }}
+              >
+                <p
+                  className="paragraphe-dest"
+                  style={{
+                    marginTop: "22px"
+                  }}
+                >
+                  Taux d'utilisation de la RAM de la Raspberry
+                </p>
+                <span
+                  style={{
+                    fontSize: "35px",
+                    color: "black",
+                    fontWeight: "bold"
+                  }}
+                >
+                  75%
+                </span>
+                <div
+                  className="progress mb-2"
+                  style={{
+                    marginRight: "50px",
+                    marginLeft: "50px",
+                    border: "solid #f49b00"
+                  }}
+                >
+                  <div
+                    className="progress-bar"
+                    role="progressbar"
+                    style={{
+                      width: "90%"
+                    }}
+                    aria-valuenow={90}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                  />
+                </div>
+              </div>
             </div>
+            <div
+              className="destination"
+              style={{
+                backgroundColor: "#0082AE",
+                paddingTop: "50px"
+              }}
+            />
           </div>
         </div>
       </div>
