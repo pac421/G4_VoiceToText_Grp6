@@ -4,6 +4,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { injectStyle } from "react-toastify/dist/inject-style";
 import { ToastContainer, toast } from "react-toastify";
 import $ from 'jquery';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMicrophone } from '@fortawesome/free-solid-svg-icons'
 
 if (typeof window !== "undefined") {
   injectStyle();
@@ -22,7 +25,8 @@ class App extends Component {
 			recognitionOutput: [],
 			keywords: [],
 			convObject: {},
-			convkeyObject: {}
+			convkeyObject: {},
+			stats: []
 		};
 	}
 	
@@ -56,7 +60,30 @@ class App extends Component {
 			console.log('get_keywords:', lst_keywords);
 			this.setState({keywords: lst_keywords});
 		});
+
+		this.socket.on('return_stats', (lst_stats) => {
+			console.log('return_stats:', lst_stats);
+			this.setState({stats: lst_stats});
+		});
+		
+		this.socket.emit('get_stats');
+		setInterval(() => {
+			this.socket.emit('get_stats');
+		}, 10000);
 	}
+	
+	
+	
+	toggle_mic = () => {
+		console.log('toggle_mic start');
+		console.log('connected :', this.state.connected);
+		if(this.state.recording)
+			this.stopRecording();
+		else 
+			this.startRecording();
+	}
+	
+	
 	
 	try_recognition = word => {
 		console.groupCollapsed("try_recognition for '" + word + "'");
@@ -81,6 +108,7 @@ class App extends Component {
 	
 	keyword_detected = keyword => {
 		console.log('keyword detected:', keyword.label);
+		console.log('convObject:', this.state.convkeyObject);
 		
 		toast.success(keyword.label, {
 			position: "top-right",
@@ -105,7 +133,7 @@ class App extends Component {
 		if (this.socket.connected)
 			this.socket.emit('add_conversation_keyword', this.state.convkeyObject);
 	}
-	
+
 	levenshteinDistance = (str1 = '', str2 = '') => {
 		const track = Array(str2.length + 1).fill(null).map(() =>
 			Array(str1.length + 1).fill(null));
@@ -146,26 +174,82 @@ class App extends Component {
 			return res;
 	}
 	
+	
+	
+	
+	
 	render() {
+		
 		return (
-			<div className="App">
-				<div>
-					<button disabled={!this.state.connected || this.state.recording} onClick={this.startRecording}>
-						Start Recording
-					</button>
+			<div className="App" style={{backgroundColor: "#4d4d4d"}}>
+				<div className="container bg-white vh-100 vw-100" style={{borderTop: "solid #0082ae 20px"}}>
+					<h2 className="py-3" style={{color: "#0082ae"}}>Elaboration PNR par reconnaissance vocale</h2>
 					
-					<button disabled={!this.state.recording} onClick={this.stopRecording}>
-						Stop Recording
-					</button>
+					<div className="row">
+						<div className="col-lg-3">
+							<div className="h-100 w-100 d-flex justify-content-center align-items-center flex-column">
+							
+								<div onClick={this.toggle_mic} className={"mb-2 mic_btn " + (this.state.recording ? 'active' : '')}>
+									<FontAwesomeIcon icon={faMicrophone} />
+								</div>
+								
+								{this.renderTime()}
+							</div>
+						</div>
+						<div className="col-lg-9">
+							<div className="w-100 rounded p-2" style={{height: "200px", backgroundColor: "#B1D9E6", border: "1px solid #0082AE", overflowY: "auto"}}>
+								{this.renderRecognitionOutput()}
+							</div>
+						</div>
+					</div>
 					
-					{this.renderTime()}
+					<div className="container-fluid rounded my-5 pb-3" style={{backgroundColor: "#daedf3", color: "#0082ae"}}>
+						<h4 className="pt-3">Commandes manuelles</h4>
+						
+						<div className="row gy-2">
+							{
+								this.state.keywords.map(k => (
+									<div className="col-6" key={k.id}>
+										<div 
+											className="p-2 border bg-white hoverable text-center rounded" 
+											onClick={() => {
+												if(this.state.convObject.id !== undefined)
+													this.keyword_detected(k);
+											}}
+										>
+											{k.label}
+										</div>
+									</div>
+								))
+							} 
+						</div>
+					</div>
+					
+					<div className="row gy-3 pb-3" style={{backgroundColor: "#0082ae"}}>
+						{
+							this.state.stats.map(k => (
+								<div className="col-4" key={k.id}>
+									<div className="p-2 border bg-white rounded d-flex flex-column justify-content-center align-items-center">
+										<div>
+											{k.label}
+										</div>
+										<div style={{color: "#0082ae", fontSize: '30px'}}>
+											{k.value}
+										</div>
+									</div>
+								</div>
+							))
+						} 
+					</div>
+					
+					<ToastContainer />
 				</div>
-				{this.renderRecognitionOutput()}
-				<ToastContainer />
 			</div>
 			
 		);
 	}
+	
+	
 	
 	renderTime() {
 		return (<span>

@@ -11,3 +11,28 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.hoverable:hover {
+    background: #0082ae !important;
+    color: #fff !important;
+    cursor: pointer !important;
+}
+
+.mic_btn {
+	background: #0082ae;
+	height: 80px;
+	width: 80px;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	font-size: 40px;
+	cursor: pointer;
+}
+
+.mic_btn.active {
+	background: #fff;
+	border: solid 2px #f1f1f1;
+	color: red;
+}
