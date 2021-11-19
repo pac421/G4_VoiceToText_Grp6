@@ -224,6 +224,8 @@ const add_conversation = (obj) => {
 }
 
 const add_conversation_keyword = (obj) => {
+	console.log('add_conversation_keyword start');
+	console.log('obj :', obj);
 	con.query('INSERT INTO CONVERSATION_KEYWORD SET ?', obj, (err, res) => {
 		if(err) throw err;
 		console.log('new conversation_keyword inserted:', res.insertId);
@@ -241,12 +243,15 @@ const get_cpu_percentage = () => {
 	const cpus = os.cpus();
 	const cpu = cpus[0];
 
+	console.log('=========== CPU ===========');
+	console.log(cpus, cpu);
+	console.log('=========== CPU ===========');
 	const total = Object.values(cpu.times).reduce(
 		(acc, tv) => acc + tv, 0
 	);
 
 	const usage = process.cpuUsage();
-	const currentCPUUsage = (usage.user + usage.system) * 1000;
+	const currentCPUUsage = (usage.user + usage.system);// * 1000;
 
 	const perc = currentCPUUsage / total *100;
 
@@ -310,37 +315,60 @@ io.on('connection', function(socket) {
 			
 				con.query('SELECT COUNT(*) AS count FROM CONVERSATION_KEYWORD', (err, actions_executed) => {
 					if(err) throw err;
+
+					con.query('SELECT * FROM CONVERSATION WHERE ended_at is not NULL', (err, endedConversations) => {
+						let conversationAvergae = 0;
+						let durationMs = 0;
+						const divide = endedConversations.length;
+						endedConversations.forEach( function(c){
+							console.log(c);
+							durationMs += (c.ended_at - c.started_at)
+						});
+						conversationAverage = durationMs / divide / 1000;
 				
 					let lst_stats = [
 						{
 							id: 'keywords_day',
 							value: keywords_day[0]['count'],
-							label: 'Mot clés détectés (24h)'
+							label: 'Mots-clés détectés (24h)',
+							logo: 'calendar'
 						},
 						{
 							id: 'current_speaks',
 							value: current_speaks[0]['count'],
-							label: 'Conversations en cours'
+							label: 'Conversations en cours',
+							logo: 'headset'
 						},
 						{
 							id: 'actions_executed',
 							value: actions_executed[0]['count'],
-							label: "Actions réalisées"
+							label: "Actions réalisées",
+							logo: 'plane'
 						},
 						{
 							id: 'cpu_usage',
-							value: Math.round(get_cpu_percentage() *100) /100,
-							label: 'Utilisation du CPU'
+							value: Math.round(get_cpu_percentage() * 100) / 100 + '%',
+							label: 'Utilisation du CPU',
+							logo: 'chart'
 						},
 						{
 							id: 'ram_usage',
-							value: Math.round((((os.totalmem() - os.freemem()) * 100) / os.totalmem ) *100) / 100,
-							label: 'Utilisation de la RAM'
+							value: Math.round((((os.totalmem() - os.freemem()) * 100) / os.totalmem ) * 100) / 100 + '%',
+							label: 'Utilisation de la RAM',
+							logo: 'cogs'
+						},
+						{
+							id: "conversation_average",
+							value: Math.round(conversationAverage *100) /100 + 's',
+							label: 'Durée moyenne d\'une conversation',
+							logo: 'comments'
+							
 						}
 					];
 					console.log('lst_stats', lst_stats);
 				
 					socket.emit('return_stats', lst_stats);
+					})
 				});
 			})
 		})

@@ -5,12 +5,20 @@ import { injectStyle } from "react-toastify/dist/inject-style";
 import { ToastContainer, toast } from "react-toastify";
 import $ from 'jquery';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMicrophone } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMicrophone } from '@fortawesome/free-solid-svg-icons';
 
-if (typeof window !== "undefined") {
+let lst_logo = {
+	chart: require('./assets/pictures/chart.png'),
+	calendar: require('./assets/pictures/calendar.png'),
+	headset: require('./assets/pictures/headset.png'),
+	plane: require('./assets/pictures/plane.png'),
+	comments: require('./assets/pictures/comments.png'),
+	cogs: require('./assets/pictures/cogs.png'),
+};
+
+if (typeof window !== "undefined")
   injectStyle();
-}
 
 const DOWNSAMPLING_WORKER = './downsampling_worker.js';
 
@@ -110,9 +118,9 @@ class App extends Component {
 		console.log('keyword detected:', keyword.label);
 		console.log('convObject:', this.state.convkeyObject);
 		
-		toast.success(keyword.label, {
+		toast.info(keyword.action, {
 			position: "top-right",
-			autoClose: 3000,
+			autoClose: 8000,
 			hideProgressBar: false,
 			closeOnClick: false,
 			pauseOnHover: true,
@@ -181,9 +189,9 @@ class App extends Component {
 	render() {
 		
 		return (
-			<div className="App" style={{backgroundColor: "#4d4d4d"}}>
+			<div className="App">
 				<div className="container bg-white vh-100 vw-100" style={{borderTop: "solid #0082ae 20px"}}>
-					<h2 className="py-3" style={{color: "#0082ae"}}>Elaboration PNR par reconnaissance vocale</h2>
+					<h2 className="py-4" style={{color: "#0082ae"}}>Elaboration PNR par reconnaissance vocale</h2>
 					
 					<div className="row">
 						<div className="col-lg-3">
@@ -211,7 +219,7 @@ class App extends Component {
 								this.state.keywords.map(k => (
 									<div className="col-6" key={k.id}>
 										<div 
-											className="p-2 border bg-white hoverable text-center rounded" 
+											className={"p-2 border bg-white text-center rounded " + (this.state.recording ? 'hoverable' : '')}
 											onClick={() => {
 												if(this.state.convObject.id !== undefined)
 													this.keyword_detected(k);
@@ -225,11 +233,14 @@ class App extends Component {
 						</div>
 					</div>
 					
-					<div className="row gy-3 pb-3" style={{backgroundColor: "#0082ae"}}>
+					<div className="row gy-4 pb-3" style={{backgroundColor: "#0082ae"}}>
 						{
 							this.state.stats.map(k => (
 								<div className="col-4" key={k.id}>
 									<div className="p-2 border bg-white rounded d-flex flex-column justify-content-center align-items-center">
+										<div className="mb-2">
+											 <img src={lst_logo[k.logo]} alt={k.logo} height="55px"></img>
+										</div>
 										<div>
 											{k.label}
 										</div>
