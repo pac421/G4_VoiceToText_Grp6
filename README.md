@@ -24,19 +24,6 @@ Installing and Running on a RaspberryPI
 * Edit server.js with your database user credentials
 
 
-### Downloading AI model
-
-To get the AI training model you should use these commands:
-
-```sh
-# Go into models folder
-cd models/
-
-# Download custom model
-wget https://pac.center/download/customModel_fr.tflite
-```
-
-
 ### Starting the app
 
 To start the application you should use these commands:
