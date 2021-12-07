@@ -33,7 +33,6 @@ class App extends Component {
 			recognitionOutput: [],
 			keywords: [],
 			convObject: {},
-			convkeyObject: {},
 			stats: []
 		};
 	}
@@ -116,7 +115,9 @@ class App extends Component {
 	
 	keyword_detected = keyword => {
 		console.log('keyword detected:', keyword.label);
-		console.log('convObject:', this.state.convkeyObject);
+		
+		if(!this.state.recording)
+			return;
 		
 		toast.info(keyword.action, {
 			position: "top-right",
@@ -128,18 +129,15 @@ class App extends Component {
 			progress: undefined
 		});
 		
-		this.setState({
-			convkeyObject: { 
-				id_conversation: this.state.convObject.id,
-				id_keyword: keyword.id, 
-				created_at: new Date().toISOString().slice(0, 19).replace('T', ' ')
-			}
-		});
+		let convkeyObject = { 
+			id_conversation: this.state.convObject.id,
+			id_keyword: keyword.id, 
+			created_at: new Date().toISOString().replace('T', ' ').replace('Z', '')
+		};
+		console.log('convkeyObject: ', convkeyObject);
 		
-		console.log('new conv_keyword object:', this.state.convkeyObject);
-		
-		if (this.socket.connected)
-			this.socket.emit('add_conversation_keyword', this.state.convkeyObject);
+		if(this.socket.connected)
+			this.socket.emit('add_conversation_keyword', convkeyObject);
 	}
 
 	levenshteinDistance = (str1 = '', str2 = '') => {
@@ -191,7 +189,7 @@ class App extends Component {
 		return (
 			<div className="App">
 				<div className="container bg-white vh-100 vw-100" style={{borderTop: "solid #0082ae 20px"}}>
-					<h2 className="py-4" style={{color: "#0082ae"}}>Elaboration PNR par reconnaissance vocale</h2>
+					<h2 className="py-4" style={{color: "#0082ae"}}>Élaboration PNR par reconnaissance vocale</h2>
 					
 					<div className="row">
 						<div className="col-lg-3">

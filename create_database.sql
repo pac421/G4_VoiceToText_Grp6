@@ -16,8 +16,8 @@ CREATE TABLE CONVERSATION_KEYWORD
 (
     id_conversation VARCHAR(36) NOT NULL, 
     id_keyword      VARCHAR(36) NOT NULL,
-    created_at      DATETIME,
-    PRIMARY KEY(id_conversation, id_keyword)
+    created_at      DATETIME(3) NOT NULL,
+    PRIMARY KEY(id_conversation, id_keyword, created_at)
 );
 
 ALTER TABLE CONVERSATION_KEYWORD
